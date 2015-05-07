@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Sergey Pozhilov (GetTemplate.com)">
+
+    <title>About - Progressus Bootstrap template</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <link rel="shortcut icon" href="assets/images/gt_favicon.png">
+
+    <link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <!-- Custom styles for our template -->
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="assets/js/html5shiv.js"></script>
+    <script src="assets/js/respond.min.js"></script>
+    <![endif]-->
+
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <style type="text/css">
+
+        .requestedTask {
+            border: 1px solid #1e98d6;
+            background-color: #1e98d6;
+        }
+
+        .progressTask {
+            border: 1px solid #ffa210;
+            background-color: #ffa210;
+        }
+
+        .doneTask {
+            border: 1px solid #ffa210;
+            background-color: rgb(52, 169, 123);
+        }
+
+        .LI_1 {
+            border-collapse: collapse;
+            box-sizing: border-box;
+            clear: left;
+            color: rgb(65, 65, 65);
+            cursor: default;
+            float: left;
+            height: 50px;
+            vertical-align: top;
+            width: 182px;
+            perspective-origin: 91px 29.5px;
+            transform-origin: 91px 29.5px;
+            background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box;
+            border: 1px solid rgb(204, 204, 204);
+            border-radius: 3px 3px 3px 3px;
+            font: normal normal normal normal 11px/15.7142858505249px 'Open Sans', Verdana, Arial, sans-serif;
+            list-style: none outside none;
+            margin: 5px;
+            outline: rgb(65, 65, 65) none 0px;
+        }
+
+        .DIV_2 {
+            border-collapse: collapse;
+            box-sizing: border-box;
+            color: rgb(255, 255, 255);
+            cursor: default;
+            height: 20px;
+            text-align: left;
+            width: 182px;
+            perspective-origin: 91px 10px;
+            transform-origin: 91px 10px;
+            /*background: rgb(52, 169, 123) none repeat scroll 0% 0% / auto padding-box border-box;*/
+            border: 0px none rgb(255, 255, 255);
+            border-radius: 3px 3px 0 0;
+            font: normal normal normal normal 11px/20px 'Open Sans', Verdana, Arial, sans-serif;
+            list-style: none outside none;
+            margin: -1px -1px 0px;
+            outline: rgb(255, 255, 255) none 0px;
+            overflow: hidden;
+        }
+
+    </style>
+    <script type="text/javascript">
+
+        $(function () {
+            <%		var reqCount=0, progressCount=0, doneCount=0;
+        for(var i=0; i<totalTasks.length; i++){
+                if(totalTasks[i].status == 'In Progress')
+                    progressCount++;
+                else if(totalTasks[i].status == 'Requested')
+                    reqCount++;
+                else if(totalTasks[i].status == 'Complete')
+                    doneCount++;
+            }  %>
+
+            chart = new Highcharts.Chart({
+
+
+                chart: {
+                    renderTo: 'container',
+                    type: 'bar'
+                },
+                title: {
+                    text: 'KanBan Project Progress Bar Chart'
+                },
+                subtitle: {
+                    text: 'Multitenant CMPE 281 @ Copyright Team#19'
+                },
+                xAxis: {
+                    categories: ['Requested', 'In Progress', 'Completed'],
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Number of tasks',
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    valueSuffix: ' millions'
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'top',
+                    x: -40,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+                    backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+                    shadow: true
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Threshold Limit',
+                    data: [5, 5, 5]
+                }, {
+                    name: 'Actual Tasks',
+                    data: [<%=reqCount%>, <%=progressCount%>, <%=doneCount%>]
+                }]
+            });
+        });
+    </script>
+</head>
+
+<body>
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse navbar-fixed-top headroom">
+    <div class="container">
+        <div class="navbar-header">
+            <!-- Button for smallest screens -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span
+                        class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span></button>
+
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="index.html">Home</a></li>
+                <li class="active"><a href="about.html">About</a></li>
+                <!-- 					<li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">More Pages <b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="sidebar-left.html">Left Sidebar</a></li>
+                                            <li><a href="sidebar-right.html">Right Sidebar</a></li>
+                                        </ul>
+                                    </li> -->
+                <!-- <li><a href="contact.html">Contact</a></li> -->
+                <li><a class="btn" href="/logout">LOGOUT</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</div>
+<!-- /.navbar -->
+
+<header id="head" class="secondary"></header>
+
+<!-- container -->
+
+<div class="container">
+    <div class="row">
+
+        <table class="table table-bordered">
+
+
+            <tr>
+                <th>Requested</th>
+                <th>In Progress</th>
+                <th>Done</th>
+            </tr>
+            <tr>
+                <td>
+
+                    <% if(totalTasks.length > 0 && totalTasks && totalTasks != null) {
+
+                        var reqCount = 0;
+                            totalTasks.forEach(function(item){ %>
+
+                    <% if(item.status == 'Requested') {
+                        reqCount++;
+                    %>
+
+                    <li class="LI_1">
+                        <div class="DIV_2"><a href="/editActivity/<%= item.id %>"> <%= item.title %></a></div>
+                        <%= item.description %>
+                        <div>
+                            <a href="/deleteTask/<%= item.id %>" type="button"
+                               class="btn1 btn-danger btn-xs">Delete</a>
+                        </div>
+                    </li>
+
+                    <% }});} %>
+
+                </td>
+                <td>
+
+                    <% if(totalTasks.length > 0 && totalTasks && totalTasks != null) {
+                        var progressCount = 0;
+                            totalTasks.forEach(function(item){ %>
+
+                    <% if(item.status == 'In Progress') {
+                        progressCount++; %>
+                    <li class="LI_1">
+                        <div class="DIV_2"><a href="/editActivity/<%= item.id %>"> <%= item.title %></a></div>
+                        <%= item.description %>
+                        <div>
+                            <a href="/deleteTask/<%= item.id %>" type="button"
+                               class="btn1 btn-danger btn-xs">Delete</a>
+                        </div>
+                    </li>
+
+                    <% }});} %>
+
+                </td>
+                <td>
+
+                    <% if(totalTasks.length > 0 && totalTasks && totalTasks != null) {
+                        var completeCount = 0;
+                            totalTasks.forEach(function(item){ %>
+
+                    <% if(item.status == 'Complete') {
+                        completeCount++; %>
+                    <li class="LI_1">
+                        <div class="DIV_2"><a href="/editActivity/<%= item.id %>"> <%= item.title %></a></div>
+                        <%= item.description %>
+                        <div>
+                            <a href="/deleteTask/<%= item.id %>" type="button"
+                               class="btn1 btn-danger btn-xs">Delete</a>
+                        </div>
+                    </li>
+
+                    <% }});} %>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <% if (reqCount > 5){ %>
+
+                    <% } else { %>
+                    <font size="5px" color="Green"><b>Below Threshold</b></font>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (progressCount > 5){ %>
+                    <font size="5px" color="Red"><b>Above Threshold</b></font>
+                    <% } else { %>
+                    <font size="5px" color="Green"><b>Below Threshold</b></font>
+                    <% } %>
+                </td>
+                <td>
+                    <% if (completeCount > 5){ %>
+                    <font size="5px" color="Red"><b>Above Threshold</b></font>
+                    <% } else { %>
+                    <font size="5px" color="Green"><b>Below Threshold</b></font>
+                    <% } %>
+                </td>
+
+            </tr>
+
+
+        </table>
+        <font size="2px" color="Blue"><b>*Threshold Max limit is 5/Queue</b></font>
+    </div>
+    <a style="float: right;margin-right: 100px;" type="button" href="/addNewKabanCard" class="btn btn-primary">Add
+        Card</a>
+</div>
+<div id="container" style="min-width: 310px; max-width: 800px; margin-bottom: 100px; height: 500px;"></div>
+
+
+<footer id="footer" class="footer navbar-fixed-bottom">
+
+
+    <div class="footer2">
+        <div class="container">
+            <div class="row">
+
+
+                <div class="col-md-6 widget">
+                    <div class="widget-body">
+                        <p class="text-right">
+                            Copyright &copy; 2015, CMPE281. Designed by <a href="" rel="designer">CMPE281 - TEAM #19</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /row of widgets -->
+        </div>
+    </div>
+</footer>
+
+
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="assets/js/headroom.min.js"></script>
+<script src="assets/js/jQuery.headroom.min.js"></script>
+<script src="assets/js/template.js"></script>
+</body>
+</html>
